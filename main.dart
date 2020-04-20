@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,6 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Admob.initialize(getAppId());
   runApp(MyApp());
+
 }
 
 class MyApp extends StatefulWidget {
@@ -17,20 +17,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
-  AdmobBannerSize bannerSize;
+  AdmobBannerSize bannerSize = AdmobBannerSize.BANNER;
   AdmobInterstitial interstitialAd;
   AdmobReward rewardAd;
 
-
-
   @override
   void initState() {
-
     super.initState();
-    bannerSize = AdmobBannerSize.FULL_BANNER;
-
-//    AdmobBanner banner = AdmobBanner(adUnitId: getBannerAdUnitId(), adSize: bannerSize);
-
+  
     interstitialAd = AdmobInterstitial(
       adUnitId: getInterstitialAdUnitId(),
       listener: (AdmobAdEvent event, Map<String, dynamic> args) {
@@ -139,7 +133,7 @@ class _MyAppState extends State<MyApp> {
               color: Colors.blueGrey,
               child: SafeArea(
                 child: SizedBox(
-                  height: 50,
+                  height: 40,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -189,16 +183,17 @@ class _MyAppState extends State<MyApp> {
           child: SingleChildScrollView(
             padding: EdgeInsets.only(bottom: 70),
             child: Column(
-
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Container(
+                  width: double.infinity,
                   padding: EdgeInsets.only(left: 10,right: 10),
                   color: Colors.grey,
                   margin: EdgeInsets.only(bottom:0),
                   child: AdmobBanner(
                     adUnitId: getBannerAdUnitId(),
-                    adSize: bannerSize,
+                    adSize: AdmobBannerSize.BANNER,
                     listener: (AdmobAdEvent event, Map<String, dynamic> args) {
                       handleEvent(event, args, 'Banner');
                     },
@@ -206,7 +201,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
-                  child:  Text("Image example"),
+                  child:  Text("Image example", textAlign: TextAlign.center),
                 ),
 
                 Container(
@@ -260,6 +255,7 @@ class _MyAppState extends State<MyApp> {
                           });
                         },
                       ),
+
                       TextField(
                         decoration: InputDecoration(labelText:"password"),
                         keyboardType: TextInputType.text,
@@ -394,7 +390,6 @@ class _MyAppState extends State<MyApp> {
                       setState(() {
                         _textRadioList = _radioListEscolha;
                       });
-                      _launchURL();
                     }),
                 Container(
                   padding: EdgeInsets.only(left: 5),
@@ -472,8 +467,12 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.only(right: 15, left: 15),
+
                   color: Colors.grey[300],
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+
                     children: <Widget>[
                       Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -530,62 +529,66 @@ class _MyAppState extends State<MyApp> {
                           ),
                           Padding(
                             padding: EdgeInsets.all(10),
+
                             child:  FloatingActionButton(
                               child: Icon(Icons.share),
+                              backgroundColor: Colors.grey,
                               onPressed: (){
                                 setState(() {
                                   floatIcon = Icon(Icons.share);
                                 });
-
                               },
-                              backgroundColor: Colors.grey,
 
-                            ) ,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child:  FloatingActionButton(
-                              child: Icon(Icons.web),
-                              onPressed: (){
-                                setState(() {
-                                  floatIcon = Icon(Icons.web);
-                                });
-
-                              },
-                              backgroundColor: Colors.pink,
 
                             ) ,
                           ),
 
                         ],
                       ),
+                     Container(
+                       padding: EdgeInsets.only(top: 60,bottom: 30),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.stretch,
+                         children: <Widget>[
+                           RaisedButton(
+                               color: Colors.green[800],
+                               child: Text("Source code", style: TextStyle(color: Colors.white),),
+                               onPressed: (){
+                                 _launchInWebViewOrVC("https://raw.githubusercontent.com/diogenesNegreiros/Flutter_widgets/master/main.dart");
+                               }),
+                           RaisedButton(
 
+                               color: Colors.blueGrey,
+                               child: Text("GitHub", style: TextStyle(color: Colors.white),),
+                               onPressed: (){
+                                 _launchInBrowser("https://github.com/diogenesNegreiros/Flutter_widgets");
+                               }),
+                           RaisedButton(
 
-
+                               color: Colors.blue[900],
+                               child: Text("About Flutter", style: TextStyle(color: Colors.white),),
+                               onPressed: (){
+                                 _launchInBrowser("https://flutter.dev/");
+                               }),
+                         ],
+                       ),
+                     )
                     ],
                   ),
-                ),
-
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.only(top: 80),
-                  child:  RaisedButton(
-                      color: Colors.indigoAccent[400],
-                      child: Text("Source code Dart", style: TextStyle(color: Colors.white),),
-                      onPressed: (){
-                        _launchInWebViewOrVC("https://flutter.dev");
-                      }),
                 )
 
               ],
             ),
 
+
           ),
+
         ),
 
         bottomSheet: Container(
+          width: double.infinity,
           color: Colors.white,
-          margin: EdgeInsets.only(bottom:0),
+          margin: EdgeInsets.only(bottom:3, top: 3),
           child: AdmobBanner(
             adUnitId: getBannerAdUnitId(),
             adSize: bannerSize,
@@ -594,6 +597,7 @@ class _MyAppState extends State<MyApp> {
             },
           ),
         ),
+
       ),
 
     );
@@ -662,21 +666,27 @@ String getRewardBasedVideoAdUnitId() {
   return null;
 }
 
-_launchURL() async {
-  const url = 'https://flutter.dev';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
-Future<void> _launchInWebViewOrVC(String url) async {
+_launchInWebViewOrVC(String url) async {
   if (await canLaunch(url)) {
     await launch(
       url,
       forceSafariVC: true,
       forceWebView: true,
+      enableJavaScript: true,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_launchInBrowser(String url) async {
+  if (await canLaunch(url)) {
+    await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
       headers: <String, String>{'my_header_key': 'my_header_value'},
     );
   } else {
