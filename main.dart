@@ -1,5 +1,5 @@
 
-//Desenvolvedor: Diogenes de Souza
+//Desenvolvedor: Diogenes de Souza Negreiros
 
 import 'dart:io';
 import 'package:flutter/material.dart';
