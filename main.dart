@@ -1,3 +1,6 @@
+
+//Desenvolvedor: Diogenes de Souza
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:admob_flutter/admob_flutter.dart';
