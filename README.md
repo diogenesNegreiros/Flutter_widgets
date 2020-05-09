@@ -4,6 +4,11 @@
 <p align="center">
   <img src="previews/flutterWidget_playStore.png" width="350" alt="accessibility text">
   </p>
+  
+  Aplicativo de exibição de desenvolvimento com Flutter, usando a linguagem Dart para desenvolvedores, uma pequena amostra básica dos widgets de idioma principal, anúncios do Google Admob e o plug-in "URL de inicialização". Consulte o código fonte e conheça um pouco o Flutter!
+  App ios : https://apps.apple.com/us/app/mobile-flutter-widgets/id1509080078?l=pt&ls=1
+  App android: https://play.google.com/store/apps/details?id=com.mobilemaker.flutter.widgets
+  
   <p align="center">
   <img src="previews/gráfico_flutter_playStore.png" width="600" alt="accessibility text">
   </p>
